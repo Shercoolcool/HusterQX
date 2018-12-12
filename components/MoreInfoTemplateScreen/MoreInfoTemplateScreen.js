@@ -44,12 +44,12 @@ export default class MoreInfoTemplateScreen extends PureComponent {
         searchText: '',
         infoAPI: '',
         itemData: [{
-            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
-            title: "haha",
-            tim: "2018-12-05 16:30 ",
-            place: "hehehe",
-            url: "http://www.hustsvo.com",
-            content: [{ type: "text", content: "xixi" }],
+            id: '0015436617277547b34d6be99bf44eb8131d96d89a28bf0000',
+            title: 'haha',
+            tim: '2018-12-05 16:30',
+            place: 'hehehe',
+            url: 'http://www.hustsvo.com',
+            content: [{ type: 'text', content: 'xixi' }],
             likes: null,
             created_at: 1543661727.7548673
         }],
@@ -57,7 +57,7 @@ export default class MoreInfoTemplateScreen extends PureComponent {
     }
 
     getMoreInfo = async (url, index) => {  // url中可加?page=2
-        console.log("haha")
+        console.log("load more!")
         if (this.state.areThereMoreDatas) {
             url = url + `?page=${Math.ceil(index / 10) + 1}`;    // 设置页码
             try {
@@ -162,6 +162,7 @@ export default class MoreInfoTemplateScreen extends PureComponent {
                     renderItem={({ item, index }) => {
                         return (
                             <SectionRenderItem
+                                that={this}
                                 key={index}
                                 itemData={item}
                                 title={title}

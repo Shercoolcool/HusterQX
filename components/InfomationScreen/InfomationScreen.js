@@ -225,6 +225,7 @@ export default class InfomationScreen extends Component {
                     )}
                     renderItem={({ item, index, section: { title } }) => (
                         <SectionRenderItem
+                            that={this}
                             key={index}
                             itemData={item}
                             title={title}
@@ -342,12 +343,11 @@ export class SectionRenderItem extends Component {
 
     _bindItemPress = () => {    // 待更新跳转逻辑
         console.log('item pressed!');
-        let { title, itemData } = this.props;  // title是section分类的title
-        // console.log(itemData);
+        let { title, itemData, that } = this.props;  // title是section分类的title
 
         that.props.navigation.navigate('DetailInfo', {
             title: title,
-            itemData: itemData
+            itemID: itemData.id
         });
     }
 

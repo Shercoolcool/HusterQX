@@ -5,6 +5,7 @@ import Util from './components/Util';
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import TabNavigator from './components/TabNavigator/TabNavigator';
+import { YellowBox } from 'react-native';
 
 const uiTheme = {
   palette: {
@@ -24,6 +25,7 @@ export default class App extends React.Component {
     Font.loadAsync({  // 设置Roboto字体
       'Roboto': require('./assets/fonts/Roboto-Light.ttf'),
     });
+    YellowBox.ignoreWarnings(['Require cycle:']);
   }
 
   render() {
