@@ -7,7 +7,7 @@ const Util = {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height
   },
-  storage: { 
+  storage: {
     _storeData: async (key, value) => {    // 同步。只能存string!
       try {
         await AsyncStorage.setItem(key, value);
@@ -21,7 +21,7 @@ const Util = {
     _retrieveData: async (key) => {    // 同步
       try {
         const value = await AsyncStorage.getItem(key);
-        console.log(`${key}:`,value);
+        console.log(`${key}:`, value);
         if (value !== null) {
           // We have data!!
           return value;
@@ -31,7 +31,7 @@ const Util = {
         }
       } catch (error) {
         // Error retrieving data
-        console.log('error:\n',error);
+        console.log('error:\n', error);
         return false;
       }
     }
@@ -43,7 +43,27 @@ const Util = {
     studentsAffair: 'http://47.107.247.42/api/jwcs', // 教务处
     internation: 'http://47.107.247.42/api/inters',
     lectures: 'http://47.107.247.42/api/lectures',
-  }
+    getInfoAPIByName: (title) => {
+      let api = '';
+      switch (title) {
+        case '招聘活动':
+          api = 'http://47.107.247.42/api/zphs';
+          break;
+        case '教务处通知':
+          api = 'http://47.107.247.42/api/jwcs';
+          break;
+        case '国际交流':
+          api = 'http://47.107.247.42/api/inters';
+          break;
+        case '讲座':
+          api = 'http://47.107.247.42/api/lectures';
+          break;
+        default:
+          api = '';
+      };
+      return api;
+    }
+  },
 };
 
 export default Util;

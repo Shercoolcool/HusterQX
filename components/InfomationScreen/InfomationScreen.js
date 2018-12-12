@@ -61,6 +61,8 @@ const styles = StyleSheet.create(
         },
         titleText: {
             fontSize: 20,
+            height: 48,
+            overflow: 'hidden',
         },
         contentText: {
             color: 'grey',
@@ -73,13 +75,85 @@ const styles = StyleSheet.create(
 
 export default class InfomationScreen extends Component {
     state = {
-        recruitments: [],
-        studentsAffair: [],
-        internation: [],
-        lectures: [],
+        recruitments: [{
+            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+            title: "haha",
+            tim: "2018-12-05 16:30 ",
+            place: "hehehe",
+            url: "http://www.hustsvo.com",
+            content: [{type: "text", content: "xixi"}],
+            likes: null,
+            created_at: 1543661727.7548673
+        },{
+            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+            title: "haha",
+            tim: "2018-12-05 16:30 ",
+            place: "hehehe",
+            url: "http://www.hustsvo.com",
+            content: [{type: "text", content: "xixi"}],
+            likes: null,
+            created_at: 1543661727.7548673
+        }],
+        studentsAffair: [{
+            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+            title: "haha",
+            tim: "2018-12-05 16:30 ",
+            place: "hehehe",
+            url: "http://www.hustsvo.com",
+            content: [{type: "text", content: "xixi"}],
+            likes: null,
+            created_at: 1543661727.7548673
+        },{
+            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+            title: "haha",
+            tim: "2018-12-05 16:30 ",
+            place: "hehehe",
+            url: "http://www.hustsvo.com",
+            content: [{type: "text", content: "xixi"}],
+            likes: null,
+            created_at: 1543661727.7548673
+        }],
+        internation: [{
+            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+            title: "haha",
+            tim: "2018-12-05 16:30 ",
+            place: "hehehe",
+            url: "http://www.hustsvo.com",
+            content: [{type: "text", content: "xixi"}],
+            likes: null,
+            created_at: 1543661727.7548673
+        },{
+            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+            title: "haha",
+            tim: "2018-12-05 16:30 ",
+            place: "hehehe",
+            url: "http://www.hustsvo.com",
+            content: [{type: "text", content: "xixi"}],
+            likes: null,
+            created_at: 1543661727.7548673
+        }],
+        lectures: [{
+            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+            title: "haha",
+            tim: "2018-12-05 16:30 ",
+            place: "hehehe",
+            url: "http://www.hustsvo.com",
+            content: [{type: "text", content: "xixi"}],
+            likes: null,
+            created_at: 1543661727.7548673
+        },{
+            id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+            title: "haha",
+            tim: "2018-12-05 16:30 ",
+            place: "hehehe",
+            url: "http://www.hustsvo.com",
+            content: [{type: "text", content: "xixi"}],
+            likes: null,
+            created_at: 1543661727.7548673
+        }],
     };
 
-    getInfo = async (url) => {
+    getInfo = async (url) => {  // url中可加?page=2
         try {
             let response = await fetch(url, {
                 method: 'GET',
@@ -96,25 +170,26 @@ export default class InfomationScreen extends Component {
     }
 
     getInfoItemData = (obj) => {
-        let title = obj.title.slice(0, 15) + '...';
+        let title = obj.title;
         let time = obj.tim;
         let content = obj.content;
-        let contentSlice = null;
+        let briefIntro = null;
         for(let i = 0; i < content.length; i++) {
             if(content[i].type == 'text') {
-                contentSlice = content[i].content.slice(0, 40) + '...';
+                briefIntro = content[i].content + '...';
+                break;
             }
         }
         return {
             title: title,
             time: time,
             pic: testPic, // 待修改没有图片时的预览图
-            contentSlice: !!contentSlice ? contentSlice : ''
+            briefIntro: !!briefIntro ? briefIntro : ''
         };
     }
 
-    async componentWillMount() {
-        if(this.state.recruitments.length == 0) {
+    async componentDidMount() {
+        if(this.state.recruitments.length == 2) {
             let recruitmentsRes = await this.getInfo(Util.backgroundAPI.recruitments);
             let studentsAffairRes = await this.getInfo(Util.backgroundAPI.studentsAffair);
             let internationRes = await this.getInfo(Util.backgroundAPI.internation);
@@ -122,57 +197,19 @@ export default class InfomationScreen extends Component {
             if(!!studentsAffairRes) {
                 if(studentsAffairRes.code == 0) {
                     this.setState({
-                        recruitments: recruitmentsRes.zphs,
-                        studentsAffair: studentsAffairRes.jwcs,
-                        internation: internationRes.inters,
-                        lectures: lecturesRes.lectures,
+                        recruitments: recruitmentsRes.items, // 更新列表内容数组
+                        studentsAffair: studentsAffairRes.items,
+                        internation: internationRes.items,
+                        lectures: lecturesRes.items,
                     });
                 }
             }
-            // let test = this.getInfoItemData(this.recruitments[0]);
         }
     }
 
     render() {
         const {recruitments, studentsAffair, internation, lectures} = this.state;
-        let recruitmentsItemData = [
-            { pic: testPic, title: 'item1', time: '2018-11-30', contentSlice: 'hahaha' },
-            { pic: testPic, title: 'item1', time: '2018-11-30', contentSlice: 'hahaha' }
-        ];
-        let studentsAffairItemData = [
-            { pic: testPic, title: 'item1', time: '2018-11-30', contentSlice: 'hahaha' },
-            { pic: testPic, title: 'item1', time: '2018-11-30', contentSlice: 'hahaha' }
-        ];
-        let internationItemData = [
-            { pic: testPic, title: 'item1', time: '2018-11-30', contentSlice: 'hahaha' },
-            { pic: testPic, title: 'item1', time: '2018-11-30', contentSlice: 'hahaha' }
-        ];
-        let lecturesItemData = [
-            { pic: testPic, title: 'item1', time: '2018-11-30', contentSlice: 'hahaha' },
-            { pic: testPic, title: 'item1', time: '2018-11-30', contentSlice: 'hahaha' }
-        ];
 
-
-        if(recruitments.length > 0) {   // 待更新为for循环，长度为常量
-            recruitmentsItemData[0] = this.getInfoItemData(recruitments[0]); 
-            recruitmentsItemData[1] = this.getInfoItemData(recruitments[1]); 
-            // console.log(recruitmentsItemData);
-        }
-        if(studentsAffair.length > 0) {   // 待更新为for循环，长度为常量
-            studentsAffairItemData[0] = this.getInfoItemData(studentsAffair[0]); 
-            studentsAffairItemData[1] = this.getInfoItemData(studentsAffair[1]); 
-            // console.log(studentsAffairItemData);
-        }
-        if(internation.length > 0) {   // 待更新为for循环，长度为常量
-            internationItemData[0] = this.getInfoItemData(internation[0]); 
-            internationItemData[1] = this.getInfoItemData(internation[1]); 
-            // console.log(internationItemData);
-        }
-        if(lectures.length > 0) {   // 待更新为for循环，长度为常量
-            lecturesItemData[0] = this.getInfoItemData(lectures[0]); 
-            lecturesItemData[1] = this.getInfoItemData(lectures[1]); 
-            // console.log(lecturesItemData);
-        }
         return (
             <View style={styles.root}>
                 <Toolbar
@@ -184,25 +221,43 @@ export default class InfomationScreen extends Component {
                 />
                 <SectionList
                     renderSectionHeader={({ section: { title } }) => (
-                        <SectionHeader title={title} this={this} />
+                        <SectionHeader title={title} this={this} /> // this用于直接取InfomationScreen中第一次请求的数据
                     )}
                     renderItem={({ item, index, section: { title } }) => (
-                        <SectionRenderItem 
-                            item={item}
+                        <SectionRenderItem
                             key={index}
+                            itemData={item}
                             title={title}
-                            this={this}
-                            key_={index}
                         />
                     )}
-                    sections={[ // 待修改为请求的数据格式
-                        { title: '推荐', data: [{ pic: testPic, title: 'item1' }, { pic: testPic, title: 'item2' }] },
-                        { title: '招聘活动', data: [recruitmentsItemData[0], recruitmentsItemData[1]] },
-                        { title: '教务处通知', data: [studentsAffairItemData[0], studentsAffairItemData[1]] },
-                        { title: '国际交流', data: [internationItemData[0], internationItemData[1]] },
-                        { title: '讲座', data: [lecturesItemData[0], lecturesItemData[1]] },
+                    sections={[
+                        {   title: '推荐', 
+                            data: [{
+                                id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+                                title: "haha",
+                                tim: "2018-12-05 16:30 ",
+                                place: "hehehe",
+                                url: "http://www.hustsvo.com",
+                                content: [{type: "text", content: "xixi"}],
+                                likes: null,
+                                created_at: 1543661727.7548673
+                            },{
+                                id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
+                                title: "haha",
+                                tim: "2018-12-05 16:30 ",
+                                place: "hehehe",
+                                url: "http://www.hustsvo.com",
+                                content: [{type: "text", content: "xixi"}],
+                                likes: null,
+                                created_at: 1543661727.7548673
+                            }]
+                        },
+                        { title: '招聘活动', data: [recruitments[0], recruitments[1]] },
+                        { title: '教务处通知', data: [studentsAffair[0], studentsAffair[1]] },
+                        { title: '国际交流', data: [internation[0], internation[1]] },
+                        { title: '讲座', data: [lectures[0], lectures[1]] },
                     ]}
-                    keyExtractor={(item, index) => item + index}    // 待修改item
+                    keyExtractor={(item, index) => item.title + index}    // 待修改item
                 />
             </View>
         );
@@ -215,9 +270,9 @@ class SectionHeader extends Component {
         const that = this.props.this;
         const title = this.props.title;
         let itemData = null;
-        switch(title) { // 应该写成一个工具方法
+        switch(title) { // 也许应该写成一个工具方法
             case '招聘活动':
-                itemData = that.state.recruitments;
+                itemData = that.state.recruitments; // 直接取存在InfomationScreen组件里的第一次请求的数据
                 break;
             case '教务处通知':
                 itemData = that.state.studentsAffair;
@@ -257,48 +312,63 @@ class SectionHeader extends Component {
 }
 
 export class SectionRenderItem extends Component {
+    state = {
+        renderItemData: {   // 后台不加briefIntro,只能自己处理了
+            pic: testPic,
+            title: 'item1',
+            time: '2018-11-30',
+            briefIntro: 'hahaha'
+        },
+    };
+
+    getInfoItemData = (obj) => {
+        let title = obj.title;
+        let time = obj.tim;
+        let content = obj.content;
+        let briefIntro = '...';
+        for(let i = 0; i < content.length; i++) {
+            if(content[i].type == 'text') {
+                briefIntro = content[i].content + '...';
+                break;
+            }
+        }
+        return {
+            title: title,
+            time: time,
+            pic: testPic, // 待修改没有图片时的预览图
+            briefIntro: briefIntro
+        };
+    }
+
     _bindItemPress = () => {    // 待更新跳转逻辑
         console.log('item pressed!');
-        const title = this.props.title;
-        const index = this.props.key_;
-        const that = this.props.this;
-        let itemData = {};
-        if(!!this.props.itemData) {
-            itemData = this.props.itemData;
-        } else {
-            switch(title) {
-                case '招聘活动':
-                    itemData = that.state.recruitments[index];
-                    break;
-                case '教务处通知':
-                    itemData = that.state.studentsAffair[index];
-                    break;
-                case '国际交流':
-                    itemData = that.state.internation[index];
-                    break;
-                case '讲座':
-                    itemData = that.state.internation[index];
-                    break;
-                default:
-                    itemData = {};
-            };
-        }
+        let { title, itemData } = this.props;  // title是section分类的title
         // console.log(itemData);
+
         that.props.navigation.navigate('DetailInfo', {
             title: title,
             itemData: itemData
         });
     }
 
+    componentDidMount() {
+        const { itemData } = this.props;
+
+        let renderItemData = this.getInfoItemData(itemData);
+        this.setState({
+            renderItemData: renderItemData
+        });
+    }
+
     render() {
-        return (     // 待修改为请求的数据格式
+        return (
             <TouchableNativeFeedback style={styles.itemTouchable} onPress={this._bindItemPress}>
                 <View style={styles.renderItemContainer}>
-                    <Image source={this.props.item.pic} />
+                    <Image source={this.state.renderItemData.pic} />
                     <View style={styles.contentContainer}>
-                        <Text style={styles.timeText}>{this.props.item.time}</Text>
-                        <Text style={styles.titleText}>{this.props.item.title}</Text>
-                        <Text style={styles.contentText}>{this.props.item.contentSlice}</Text>
+                        <Text style={styles.timeText}>{this.state.renderItemData.time}</Text>
+                        <Text style={styles.titleText}>{this.state.renderItemData.title}</Text>
+                        <Text style={styles.contentText}>{this.state.renderItemData.briefIntro}</Text>
                     </View>
                 </View>
             </TouchableNativeFeedback>
