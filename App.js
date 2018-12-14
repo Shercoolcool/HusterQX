@@ -25,7 +25,7 @@ export default class App extends React.Component {
     Font.loadAsync({  // 设置Roboto字体
       'Roboto': require('./assets/fonts/Roboto-Light.ttf'),
     });
-    YellowBox.ignoreWarnings(['Require cycle:']);
+    YellowBox.ignoreWarnings(['Require cycle:']); //忽视Require cycle警告
   }
 
   render() {

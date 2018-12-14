@@ -43,6 +43,8 @@ const Util = {
     studentsAffair: 'http://47.107.247.42/api/jwcs', // 教务处
     internation: 'http://47.107.247.42/api/inters',
     lectures: 'http://47.107.247.42/api/lectures',
+    likes: 'http://47.107.247.42/api/likes', // 一次点赞，两次取消
+    
     getInfoAPIByName: (title) => {
       let api = '';
       switch (title) {
@@ -58,10 +60,26 @@ const Util = {
         case '讲座':
           api = 'http://47.107.247.42/api/lectures';
           break;
-        default:
-          api = '';
       };
       return api;
+    },
+    getDataBaseNameByName: (title) => {
+      let DataBaseName = '';
+      switch (title) {
+        case '招聘活动':
+          DataBaseName = 'zph';
+          break;
+        case '教务处通知':
+          DataBaseName = 'jwc';
+          break;
+        case '国际交流':
+          DataBaseName = 'inter';
+          break;
+        case '讲座':
+          DataBaseName = 'lecture';
+          break;
+      };
+      return DataBaseName;
     }
   },
 };

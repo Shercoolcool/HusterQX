@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput, Image, ImageBackground, AsyncStorage } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Image, ImageBackground, AsyncStorage, KeyboardAvoidingView } from 'react-native';
 import Util from '../Util';
 import { Button } from 'react-native-material-ui';
 import { Ionicons } from '@expo/vector-icons';
@@ -135,6 +135,7 @@ export default class SignInScreen extends Component {
     _handleLogin = async () => {  // 登陆逻辑
         console.log("press login!");
         const MyScreenThis = this.props.navigation.getParam('this', this);
+        const screen = this.props.navigation.getParam('screen', 'My');
         let hash = CryptoJS.SHA1(this.state.id + ':' + this.state.password).toString();
         try {
             const res = await fetch(Util.backgroundAPI.signIn, {
@@ -152,21 +153,19 @@ export default class SignInScreen extends Component {
             console.log(resJson);
             // console.log(JSON.stringify(resJson))
             // if (resJson.code == 0) {
-                Util.storage._storeData('isSignedIn', 'true');
-                Util.storage._storeData('userData', JSON.stringify(resJson));
-                MyScreenThis.setState({
-                    isSignedIn: true
-                });
-                this.props.navigation.navigate('My', {
-                    signInRes: resJson
-                });
+            Util.storage._storeData('isSignedIn', 'true');
+            Util.storage._storeData('userData', JSON.stringify(resJson));
+            MyScreenThis.setState({
+                isSignedIn: true
+            });
+            this.props.navigation.navigate(screen);
             // } else {
             //     // 待更新登陆失败逻辑
             //     // this.setState({  
             //     //     ispasswdWrong: true
             //     // });
             // }
-        } catch(error) {
+        } catch (error) {
             console.log(error);
         }
     }
@@ -181,47 +180,49 @@ export default class SignInScreen extends Component {
             textInputStyles.push(borderBottomColorStyle);
         }
         return (
-            <ImageBackground source={bg_0} style={styles.root}>
-                <View style={styles.container}>
-                    <Image source={logo} style={styles.logo} />
-                    <Text style={[styles.text, styles.title]}>Huster轻讯</Text>
-                    <Text style={[styles.text, styles.smallText]}>学号</Text>
-                    <TextInput
-                        style={textInputStyles}
-                        onChangeText={(text) => this.setState({ id: text })}
-                        value={this.state.id}
-                    />
-                    {id.length > 10 ? <Text style={styles.smallerText}>请输入正确的学号</Text> : <View style={styles.emptyView} />}
-                    <Text style={[styles.text, styles.smallText]}>密码</Text>
-                    <TextInput
-                        style={textInputStyles}
-                        onChangeText={(text) => this.setState({ password: text })}
-                        value={this.state.password}
-                        secureTextEntry={true}
-                    />
-                    {ispasswdWrong ? <Text style={styles.smallerText}>请输入正确的密码</Text> : <View style={styles.emptyView} />}
-                    <Button
-                        raised
-                        primary
-                        style={materialStyles.SignInButton}
-                        text='登陆'
-                        onPress={this._handleLogin}
-                    />
-                    <View style={styles.footContainer}>
-                        <Button
-                            primary
-                            text='忘记密码'
-                            style={materialStyles.forgotButton}
-                            onPress={() => console.log("forget pw!")}
+            <KeyboardAvoidingView style={styles.root} behavior="padding" enabled>
+                <ImageBackground source={bg_0} style={styles.root}>
+                    <View style={styles.container}>
+                        <Image source={logo} style={styles.logo} />
+                        <Text style={[styles.text, styles.title]}>Huster轻讯</Text>
+                        <Text style={[styles.text, styles.smallText]}>学号</Text>
+                        <TextInput
+                            style={textInputStyles}
+                            onChangeText={(text) => this.setState({ id: text })}
+                            value={this.state.id}
                         />
-                        <Button
-                            primary
-                            text='注册'
-                            onPress={() => this.props.navigation.navigate('SignUp')}
+                        {id.length > 10 ? <Text style={styles.smallerText}>请输入正确的学号</Text> : <View style={styles.emptyView} />}
+                        <Text style={[styles.text, styles.smallText]}>密码</Text>
+                        <TextInput
+                            style={textInputStyles}
+                            onChangeText={(text) => this.setState({ password: text })}
+                            value={this.state.password}
+                            secureTextEntry={true}
                         />
+                        {ispasswdWrong ? <Text style={styles.smallerText}>请输入正确的密码</Text> : <View style={styles.emptyView} />}
+                        <Button
+                            raised
+                            primary
+                            style={materialStyles.SignInButton}
+                            text='登陆'
+                            onPress={this._handleLogin}
+                        />
+                        <View style={styles.footContainer}>
+                            <Button
+                                primary
+                                text='忘记密码'
+                                style={materialStyles.forgotButton}
+                                onPress={() => console.log("forget pw!")}
+                            />
+                            <Button
+                                primary
+                                text='注册'
+                                onPress={() => this.props.navigation.navigate('SignUp')}
+                            />
+                        </View>
                     </View>
-                </View>
-            </ImageBackground>
+                </ImageBackground>
+            </KeyboardAvoidingView>
         );
     }
 }

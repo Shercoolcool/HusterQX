@@ -35,7 +35,7 @@ const styles = StyleSheet.create(
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
-            height: 112, 
+            height: 112,
         },
         renderItemContainer: {
             display: 'flex',
@@ -81,16 +81,16 @@ export default class InfomationScreen extends Component {
             tim: "2018-12-05 16:30 ",
             place: "hehehe",
             url: "http://www.hustsvo.com",
-            content: [{type: "text", content: "xixi"}],
+            content: [{ type: "text", content: "xixi" }],
             likes: null,
             created_at: 1543661727.7548673
-        },{
+        }, {
             id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
             title: "haha",
             tim: "2018-12-05 16:30 ",
             place: "hehehe",
             url: "http://www.hustsvo.com",
-            content: [{type: "text", content: "xixi"}],
+            content: [{ type: "text", content: "xixi" }],
             likes: null,
             created_at: 1543661727.7548673
         }],
@@ -100,16 +100,16 @@ export default class InfomationScreen extends Component {
             tim: "2018-12-05 16:30 ",
             place: "hehehe",
             url: "http://www.hustsvo.com",
-            content: [{type: "text", content: "xixi"}],
+            content: [{ type: "text", content: "xixi" }],
             likes: null,
             created_at: 1543661727.7548673
-        },{
+        }, {
             id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
             title: "haha",
             tim: "2018-12-05 16:30 ",
             place: "hehehe",
             url: "http://www.hustsvo.com",
-            content: [{type: "text", content: "xixi"}],
+            content: [{ type: "text", content: "xixi" }],
             likes: null,
             created_at: 1543661727.7548673
         }],
@@ -119,16 +119,16 @@ export default class InfomationScreen extends Component {
             tim: "2018-12-05 16:30 ",
             place: "hehehe",
             url: "http://www.hustsvo.com",
-            content: [{type: "text", content: "xixi"}],
+            content: [{ type: "text", content: "xixi" }],
             likes: null,
             created_at: 1543661727.7548673
-        },{
+        }, {
             id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
             title: "haha",
             tim: "2018-12-05 16:30 ",
             place: "hehehe",
             url: "http://www.hustsvo.com",
-            content: [{type: "text", content: "xixi"}],
+            content: [{ type: "text", content: "xixi" }],
             likes: null,
             created_at: 1543661727.7548673
         }],
@@ -138,16 +138,16 @@ export default class InfomationScreen extends Component {
             tim: "2018-12-05 16:30 ",
             place: "hehehe",
             url: "http://www.hustsvo.com",
-            content: [{type: "text", content: "xixi"}],
+            content: [{ type: "text", content: "xixi" }],
             likes: null,
             created_at: 1543661727.7548673
-        },{
+        }, {
             id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
             title: "haha",
             tim: "2018-12-05 16:30 ",
             place: "hehehe",
             url: "http://www.hustsvo.com",
-            content: [{type: "text", content: "xixi"}],
+            content: [{ type: "text", content: "xixi" }],
             likes: null,
             created_at: 1543661727.7548673
         }],
@@ -174,8 +174,8 @@ export default class InfomationScreen extends Component {
         let time = obj.tim;
         let content = obj.content;
         let briefIntro = null;
-        for(let i = 0; i < content.length; i++) {
-            if(content[i].type == 'text') {
+        for (let i = 0; i < content.length; i++) {
+            if (content[i].type == 'text') {
                 briefIntro = content[i].content + '...';
                 break;
             }
@@ -189,13 +189,13 @@ export default class InfomationScreen extends Component {
     }
 
     async componentDidMount() {
-        if(this.state.recruitments.length == 2) {
+        if (this.state.recruitments.length == 2) {
             let recruitmentsRes = await this.getInfo(Util.backgroundAPI.recruitments);
             let studentsAffairRes = await this.getInfo(Util.backgroundAPI.studentsAffair);
             let internationRes = await this.getInfo(Util.backgroundAPI.internation);
             let lecturesRes = await this.getInfo(Util.backgroundAPI.lectures);
-            if(!!studentsAffairRes) {
-                if(studentsAffairRes.code == 0) {
+            if (!!studentsAffairRes) {
+                if (studentsAffairRes.code == 0) {
                     this.setState({
                         recruitments: recruitmentsRes.items, // 更新列表内容数组
                         studentsAffair: studentsAffairRes.items,
@@ -208,7 +208,7 @@ export default class InfomationScreen extends Component {
     }
 
     render() {
-        const {recruitments, studentsAffair, internation, lectures} = this.state;
+        const { recruitments, studentsAffair, internation, lectures } = this.state;
 
         return (
             <View style={styles.root}>
@@ -232,23 +232,24 @@ export default class InfomationScreen extends Component {
                         />
                     )}
                     sections={[
-                        {   title: '推荐', 
+                        {
+                            title: '推荐',
                             data: [{
                                 id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
                                 title: "haha",
                                 tim: "2018-12-05 16:30 ",
                                 place: "hehehe",
                                 url: "http://www.hustsvo.com",
-                                content: [{type: "text", content: "xixi"}],
+                                content: [{ type: "text", content: "xixi" }],
                                 likes: null,
                                 created_at: 1543661727.7548673
-                            },{
+                            }, {
                                 id: "0015436617277547b34d6be99bf44eb8131d96d89a28bf0000",
                                 title: "haha",
                                 tim: "2018-12-05 16:30 ",
                                 place: "hehehe",
                                 url: "http://www.hustsvo.com",
-                                content: [{type: "text", content: "xixi"}],
+                                content: [{ type: "text", content: "xixi" }],
                                 likes: null,
                                 created_at: 1543661727.7548673
                             }]
@@ -266,31 +267,38 @@ export default class InfomationScreen extends Component {
 }
 
 class SectionHeader extends Component {
-    _bindMoreButton = () => {
+    _bindMoreButton = async () => {
         // 检查是否已经登陆
         const that = this.props.this;
-        const title = this.props.title;
-        let itemData = null;
-        switch(title) { // 也许应该写成一个工具方法
-            case '招聘活动':
-                itemData = that.state.recruitments; // 直接取存在InfomationScreen组件里的第一次请求的数据
-                break;
-            case '教务处通知':
-                itemData = that.state.studentsAffair;
-                break;
-            case '国际交流':
-                itemData = that.state.internation;
-                break;
-            case '讲座':
-                itemData = that.state.lectures;
-                break;
-            default:
-                itemData = [];
-        };
-        that.props.navigation.navigate('MoreInfoTemplate', {
-            title: title,
-            itemData: itemData
-        });
+        const isSignedIn = await Util.storage._retrieveData('isSignedIn');
+        if (isSignedIn == 'true') {
+            const title = this.props.title;
+            let itemData = null;
+            switch (title) { // 也许应该写成一个工具方法
+                case '招聘活动':
+                    itemData = that.state.recruitments; // 直接取存在InfomationScreen组件里的第一次请求的数据
+                    break;
+                case '教务处通知':
+                    itemData = that.state.studentsAffair;
+                    break;
+                case '国际交流':
+                    itemData = that.state.internation;
+                    break;
+                case '讲座':
+                    itemData = that.state.lectures;
+                    break;
+                default:
+                    itemData = [];
+            };
+            that.props.navigation.navigate('MoreInfoTemplate', {
+                title: title,
+                itemData: itemData
+            });
+        } else {
+            that.props.navigation.navigate('SignIn',{
+                screen: 'Infomation'
+            });
+        }
     }
 
     render() {
@@ -327,8 +335,8 @@ export class SectionRenderItem extends Component {
         let time = obj.tim;
         let content = obj.content;
         let briefIntro = '...';
-        for(let i = 0; i < content.length; i++) {
-            if(content[i].type == 'text') {
+        for (let i = 0; i < content.length; i++) {
+            if (content[i].type == 'text') {
                 briefIntro = content[i].content + '...';
                 break;
             }
@@ -341,14 +349,21 @@ export class SectionRenderItem extends Component {
         };
     }
 
-    _bindItemPress = () => {    // 待更新跳转逻辑
+    _bindItemPress = async () => {    // 待更新跳转逻辑
         console.log('item pressed!');
+        const isSignedIn = await Util.storage._retrieveData('isSignedIn');
         let { title, itemData, that } = this.props;  // title是section分类的title
+        if (isSignedIn == 'true') {
 
-        that.props.navigation.navigate('DetailInfo', {
-            title: title,
-            itemID: itemData.id
-        });
+            that.props.navigation.navigate('DetailInfo', {
+                title: title,
+                itemID: itemData.id
+            });
+        } else {
+            that.props.navigation.navigate('SignIn', {
+                screen: 'Infomation'
+            });
+        }
     }
 
     componentDidMount() {

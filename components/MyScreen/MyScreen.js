@@ -157,7 +157,7 @@ export default class MyScreen extends Component {
                     ) : (
                             <View style={styles.cardButtonContainer}>
                                 <Button raised primary style={materialStyles.button} text="注册" onPress={() => this.props.navigation.navigate('SignUp')} />
-                                <Button raised primary style={materialStyles.button} text="登陆" onPress={() => this.props.navigation.navigate('SignIn', {this: this})} />
+                                <Button raised primary style={materialStyles.button} text="登陆" onPress={() => this.props.navigation.navigate('SignIn', {this: this, screen: 'My'})} />
                             </View>
                         )}
                 </View>
